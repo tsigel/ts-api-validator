@@ -12,7 +12,7 @@
   "scripts": {
     "pretest": "node_modules/.bin/tsc -p ./test",
     "test": "node_modules/.bin/mocha test/tests.js && node_modules/.bin/karma start test/karma.conf.js",
-    "prepublush": "npm run test",
+    "preversion": "npm run test",
     "postversion": "git push origin HEAD && git push --tags && npm publish"
   },
   "devDependencies": {
