@@ -9,8 +9,8 @@ export class ArrayPart extends BaseItem<IArrayPart> {
 
     private _child: BaseItem<any>;
 
-    constructor(config: IArrayPart) {
-        super(config);
+    constructor(config: IArrayPart, path?: string) {
+        super(config, path);
         const Component = getComponentConstructor(this.options.content.type);
         this._child = new Component(this.options.content);
     }

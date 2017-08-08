@@ -7,7 +7,14 @@ import { IStringPart } from './inderface';
 export class StringPart extends BaseItem<IStringPart> {
 
     protected getValue(data: any): string {
-        return String(data);
+        switch (typeof data) {
+            case 'string':
+                return data;
+            case 'number':
+                return String(data);
+            default:
+                return null;
+        }
     }
 
 }

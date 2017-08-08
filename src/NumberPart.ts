@@ -7,7 +7,14 @@ import { INumberPart } from './inderface';
 export class NumberPart extends BaseItem<INumberPart> {
 
     protected getValue(data: any): number {
-        return Number(data);
+        switch (typeof data) {
+            case 'number':
+                return data;
+            case 'string':
+                return Number(data);
+            default:
+                return null;
+        }
     }
 
     protected isEmpty(data: any): boolean {

@@ -1,8 +1,8 @@
 import { BaseItem } from './BaseItem';
 import { getComponentConstructor, registerComponent } from './components';
-import { isObject, each } from 'ts-utils';
+import { each, isObject } from 'ts-utils';
 
-import { IObjectPart, IHash, TSomePart } from './inderface';
+import { IHash, IObjectPart, TSomePart } from './inderface';
 
 
 export class ObjectPart extends BaseItem<IObjectPart> {
@@ -10,12 +10,17 @@ export class ObjectPart extends BaseItem<IObjectPart> {
     private _childHash: IHash<BaseItem<any>>;
 
 
-    constructor(config: IObjectPart) {
-        super(config);
+    constructor(config: IObjectPart, path?: string) {
+        super(config, path);
+
+        const myPath = this.getPath();
+
+        this._childHash = Object.create(null);
 
         each(this.options.content, (config: TSomePart, key) => {
             const Component = getComponentConstructor(config.type);
-            this._childHash[key] = new Component(config);
+            const localPath = path == null ? key : `${myPath}.${key}`;
+            this._childHash[key] = new Component(config, localPath);
         });
     }
 
@@ -23,8 +28,8 @@ export class ObjectPart extends BaseItem<IObjectPart> {
         const value = super.process(data);
         if (value && isObject(value)) {
             const result = Object.create(null);
-            each(value, (data: any, key: string) => {
-                result[key] = this._childHash[key].process(data);
+            Object.keys(this._childHash).forEach((name) => {
+                result[name] = this._childHash[name].process(data);
             });
             return result;
         } else {

@@ -1,5 +1,6 @@
 export interface IPartialOptions<T> {
     path?: string;
+    type: string;
     defaultValue?: T;
     required?: boolean;
     isEmpty?: (value: any) => boolean;

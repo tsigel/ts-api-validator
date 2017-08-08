@@ -31,7 +31,7 @@ export abstract class BaseItem<T extends IPartialOptions<any>> {
 
         if (this.options.required) {
             if (isEmpty) {
-                throw new Error(`Required field "${path}" is empty!`);
+                throw new Error(`Required field type "${this.options.type}" "${path}" is empty!`);
             }
         }
 
@@ -65,8 +65,10 @@ export abstract class BaseItem<T extends IPartialOptions<any>> {
             } else {
                 return this.options.parseValue(data);
             }
-        } else {
+        } else if (path != null) {
             return get(data, path);
+        } else {
+            return data;
         }
     }
 

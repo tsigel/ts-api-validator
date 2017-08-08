@@ -7,7 +7,15 @@ import { IBooleanPart } from './inderface';
 export class BooleanPart extends BaseItem<IBooleanPart> {
 
     protected getValue(data: any): boolean {
-        return Boolean(data);
+        switch (typeof data) {
+            case 'boolean':
+                return data;
+            case 'string':
+            case 'number':
+                return Boolean(data);
+            default:
+                return null;
+        }
     }
 
 }
