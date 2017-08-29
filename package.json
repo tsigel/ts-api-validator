@@ -7,7 +7,7 @@
     "url": "https://github.com/tsigel/ts-api-validator.git"
   },
   "dependencies": {
-    "ts-utils": "^2.0.4"
+    "ts-utils": "^3.0.2"
   },
   "scripts": {
     "pretest": "node_modules/.bin/tsc -p ./test",
