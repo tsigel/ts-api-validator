@@ -19,7 +19,7 @@ export class ObjectPart extends BaseItem<IObjectPart> {
 
         each(this.options.content, (config: TSomePart, key) => {
             const Component = getComponentConstructor(config.type);
-            const localPath = path == null ? key : `${myPath}.${key}`;
+            const localPath = path == null ? String(key) : `${myPath}.${key}`;
             this._childHash[key] = new Component(config, localPath);
         });
     }
