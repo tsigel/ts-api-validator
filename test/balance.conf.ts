@@ -1,4 +1,4 @@
-import { Schema } from '../index';
+import { Schema } from 'ts-api-validator';
 import { INumberPart } from '../src/inderface';
 
 export const balanceSchema = new Schema({

@@ -10,28 +10,24 @@ module.exports = function(config: any): void {
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: ['mocha', 'karma-typescript'],
+        frameworks: ['mocha'],
 
 
         // list of files / patterns to load in the browser
         files: [
-            'src/*.ts',
-            'index.ts',
-            'test/*.ts',
+            'node_modules/chai/chai.js',
+            'node_modules/ts-utils/dist/ts-utils.min.js',
+            'dist/ts-api-validator.js',
+            'test/test.js'
         ],
 
 
         // list of files to exclude
-        exclude: [
-            'test/karma.conf.ts'
-        ],
-
+        exclude: [],
 
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-        preprocessors: {
-            "**/*.ts": ['karma-typescript'], // *.tsx for React Jsx
-        },
+        preprocessors: {},
 
         // web server port
         port: 9876,
@@ -63,21 +59,7 @@ module.exports = function(config: any): void {
         // how many browser should be started simultanous
         concurrency: Infinity,
 
-        reporters: ["dots", "karma-typescript"],
-
-        karmaTypescriptConfig: {
-            reports: {
-                "html": {
-                    "directory": "coverage",
-                    "filename": ".",
-                    "subdirectory": "."
-                }
-            },
-
-            coverageOptions: {
-                exclude: /test/g,
-            }
-        },
+        reporters: ['dots'],
 
         client: {
             mocha: {

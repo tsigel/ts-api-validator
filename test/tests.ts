@@ -1,4 +1,7 @@
-import { Schema } from '../index';
+///<reference path="./interface.d.ts"/>
+
+
+import { Schema } from 'ts-api-validator';
 import { balanceData, balanceSchema } from './balance.conf';
 import * as chai from 'chai';
 import { unconfirmedData, unconfirmedSchena } from './unconfirmed.conf';
@@ -86,7 +89,7 @@ describe('check custom options', () => {
 
 describe('check components', () => {
 
-    let schema: Schema;
+    let schema;
 
     describe('number', () => {
 

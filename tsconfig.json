@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "amd",
+    "target": "es5",
+    "types": [],
+    "sourceMap": true,
+    "outFile": "dist/ts-api-validator.amd.js"
+  },
+  "include": [
+    "index.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
