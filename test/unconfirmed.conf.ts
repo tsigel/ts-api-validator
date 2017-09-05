@@ -1,4 +1,4 @@
-import { Schema } from 'ts-api-validator';
+import { Schema } from '../index';
 import { IHash, INumberPart, TSomePart } from '../src/inderface';
 
 export const unconfirmedSchena = new Schema({

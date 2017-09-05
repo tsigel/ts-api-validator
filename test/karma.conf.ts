@@ -16,9 +16,7 @@ module.exports = function(config: any): void {
         // list of files / patterns to load in the browser
         files: [
             'node_modules/chai/chai.js',
-            'node_modules/ts-utils/dist/ts-utils.min.js',
-            'dist/ts-api-validator.js',
-            'test/test.js'
+            'test/test-file.js'
         ],
 
 

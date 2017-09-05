@@ -1,10 +1,14 @@
 {
   "compilerOptions": {
+    "baseUrl": "",
     "module": "amd",
     "target": "es5",
     "types": [],
-    "sourceMap": true,
-    "outFile": "dist/ts-api-validator.amd.js"
+    "paths": {
+      "ts-utils": [
+        "node_modules/ts-utils/index.ts"
+      ]
+    }
   },
   "include": [
     "index.ts"

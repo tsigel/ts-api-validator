@@ -1,7 +1,4 @@
-///<reference path="./interface.d.ts"/>
-
-
-import { Schema } from 'ts-api-validator';
+import { Schema } from '../index';
 import { balanceData, balanceSchema } from './balance.conf';
 import * as chai from 'chai';
 import { unconfirmedData, unconfirmedSchena } from './unconfirmed.conf';
