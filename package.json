@@ -7,6 +7,12 @@
     "url": "https://github.com/tsigel/ts-api-validator.git"
   },
   "main": "dist/ts-api-validator.min.js",
+  "files": [
+    "src",
+    "dist",
+    "index.ts",
+    "index.js"
+  ],
   "dependencies": {
     "dts-gen": "^0.5.6",
     "dts-generator": "^2.1.0",
