@@ -1,5 +1,5 @@
 import { Schema } from '../index';
-import { IHash, INumberPart, TSomePart } from '../src/inderface';
+import { IHash, INumberPart, TSomePart } from '../src/interfaces';
 
 export const unconfirmedSchena = new Schema({
     type: 'array',

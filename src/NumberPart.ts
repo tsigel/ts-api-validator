@@ -1,7 +1,7 @@
 import { BaseItem } from './BaseItem';
 import { registerComponent } from './components';
 
-import { INumberPart } from './inderface';
+import { INumberPart } from './interfaces';
 
 
 export class NumberPart extends BaseItem<INumberPart> {

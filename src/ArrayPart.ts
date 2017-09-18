@@ -2,7 +2,7 @@ import { BaseItem } from './BaseItem';
 import { getComponentConstructor, registerComponent } from './components';
 import { isArray } from 'ts-utils';
 
-import { IArrayPart } from './inderface';
+import { IArrayPart } from './interfaces';
 
 
 export class ArrayPart extends BaseItem<IArrayPart> {

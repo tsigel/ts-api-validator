@@ -1,4 +1,4 @@
-import { TSomePart } from './inderface';
+import { TSomePart } from './interfaces';
 import { BaseItem } from './BaseItem';
 import { getComponentConstructor } from './components';
 

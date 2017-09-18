@@ -1,7 +1,7 @@
 import { BaseItem } from './BaseItem';
 import { registerComponent } from './components';
 
-import { IStringPart } from './inderface';
+import { IStringPart } from './interfaces';
 
 
 export class StringPart extends BaseItem<IStringPart> {
