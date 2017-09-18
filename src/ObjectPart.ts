@@ -2,7 +2,7 @@ import { BaseItem } from './BaseItem';
 import { getComponentConstructor, registerComponent } from './components';
 import { each, isObject } from 'ts-utils';
 
-import { IHash, IObjectPart, TSomePart } from './inderface';
+import { IHash, IObjectPart, TSomePart } from './interfaces';
 
 
 export class ObjectPart extends BaseItem<IObjectPart> {

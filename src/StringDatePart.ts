@@ -2,7 +2,7 @@ import { BaseItem } from './BaseItem';
 import { OUT_DATE_PATTERN } from './config';
 import { registerComponent } from './components';
 
-import { IStringDatePart } from './inderface';
+import { IStringDatePart } from './interfaces';
 import { date, IFilter } from 'ts-utils';
 
 

@@ -1,7 +1,7 @@
 import { BaseItem } from './BaseItem';
 import { registerComponent } from './components';
 
-import { IDatePart } from './inderface';
+import { IDatePart } from './interfaces';
 
 
 export class DatePart extends BaseItem<IDatePart> {

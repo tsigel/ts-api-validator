@@ -1,7 +1,7 @@
 import { BaseItem } from './BaseItem';
 import { registerComponent } from './components';
 
-import { IBooleanPart } from './inderface';
+import { IBooleanPart } from './interfaces';
 
 
 export class BooleanPart extends BaseItem<IBooleanPart> {

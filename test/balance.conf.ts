@@ -1,5 +1,5 @@
 import { Schema } from '../index';
-import { INumberPart } from '../src/inderface';
+import { INumberPart } from '../src/interfaces';
 
 export const balanceSchema = new Schema({
     type: 'object',

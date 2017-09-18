@@ -1,5 +1,5 @@
 import { get } from 'ts-utils';
-import { IPartialOptions } from './inderface';
+import { IPartialOptions } from './interfaces';
 
 
 export abstract class BaseItem<T extends IPartialOptions<any>> {
