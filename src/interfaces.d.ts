@@ -1,6 +1,11 @@
+import { BaseItem } from './BaseItem';
+import { StringDatePart } from './StringDatePart';
+import { ObjectPart } from './ObjectPart';
+import { ArrayPart } from './ArrayPart';
+
 export interface IPartialOptions<T> {
     path?: string;
-    type: string;
+    type: IBaseItemConstructor<T>;
     defaultValue?: T;
     required?: boolean;
     isEmpty?: (value: any) => boolean;
@@ -8,51 +13,31 @@ export interface IPartialOptions<T> {
     parseValue?: (value: any) => T;
 }
 
-export interface INumberPart extends IPartialOptions<number> {
-    type: 'number';
-}
-
-export interface IStringPart extends IPartialOptions<string> {
-    type: 'string';
-}
-
-export interface IBooleanPart extends IPartialOptions<boolean> {
-    type: 'boolean';
-}
-
 export interface IStringDatePart extends IPartialOptions<string> {
-    type: 'string-date';
+    type: typeof StringDatePart;
     outPattern?: string;
 }
 
-export interface IDatePart extends IPartialOptions<Date> {
-    type: 'date';
-}
-
-export interface IAnyPart extends IPartialOptions<any> {
-    type: 'any';
-}
-
 export interface IObjectPart extends IPartialOptions<IHash<any>> {
-    type: 'object';
+    type: typeof ObjectPart;
     content: IHash<TSomePart>;
 }
 
 export interface IArrayPart extends IPartialOptions<Array<any>> {
-    type: 'array';
+    type: typeof ArrayPart;
     content: TSomePart;
 }
 
 export type TSomePart =
-    INumberPart
-    | IStringPart
-    | IBooleanPart
-    | IStringDatePart
-    | IDatePart
-    | IAnyPart
+    IStringDatePart
     | IObjectPart
-    | IArrayPart;
+    | IArrayPart
+    | IPartialOptions<any>;
 
 export interface IHash<T> {
     [key: string]: T;
+}
+
+export interface IBaseItemConstructor<T> {
+    new (options: IPartialOptions<T>, path?: string): BaseItem<IPartialOptions<T>>
 }

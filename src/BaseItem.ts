@@ -28,10 +28,11 @@ export abstract class BaseItem<T extends IPartialOptions<any>> {
         let value = this.getValue(this.getDataByPath(data, path));
         const isEmpty = this.isEmpty(value);
         const isValid = this.isValid(value);
+        const type = (this.options.type as any).name || (this.options.type as any).prototype.constructor.name;
 
         if (this.options.required) {
             if (isEmpty) {
-                throw new Error(`Required field type "${this.options.type}" "${path}" is empty!`);
+                throw new Error(`Required field type "${type}" "${path}" is empty!`);
             }
         }
 

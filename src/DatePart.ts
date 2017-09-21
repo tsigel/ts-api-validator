@@ -1,10 +1,8 @@
 import { BaseItem } from './BaseItem';
-import { registerComponent } from './components';
-
-import { IDatePart } from './interfaces';
+import { IPartialOptions } from './interfaces';
 
 
-export class DatePart extends BaseItem<IDatePart> {
+export class DatePart extends BaseItem<IPartialOptions<Date>> {
 
     protected getValue(data: any): Date {
 
@@ -20,5 +18,3 @@ export class DatePart extends BaseItem<IDatePart> {
     }
 
 }
-
-registerComponent('date', DatePart);

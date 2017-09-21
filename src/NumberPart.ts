@@ -1,10 +1,8 @@
 import { BaseItem } from './BaseItem';
-import { registerComponent } from './components';
-
-import { INumberPart } from './interfaces';
+import { IPartialOptions } from './interfaces';
 
 
-export class NumberPart extends BaseItem<INumberPart> {
+export class NumberPart extends BaseItem<IPartialOptions<number>> {
 
     protected getValue(data: any): number {
         switch (typeof data) {
@@ -22,5 +20,3 @@ export class NumberPart extends BaseItem<INumberPart> {
     }
 
 }
-
-registerComponent('number', NumberPart);

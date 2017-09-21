@@ -1,25 +1,29 @@
 import { Schema } from '../index';
-import { IHash, INumberPart, TSomePart } from '../src/interfaces';
+import { IHash, TSomePart } from '../src/interfaces';
+import { ArrayPart } from '../src/ArrayPart';
+import { ObjectPart } from '../src/ObjectPart';
+import { NumberPart } from '../src/NumberPart';
+import { StringPart } from '../src/StringPart';
 
 export const unconfirmedSchena = new Schema({
-    type: 'array',
+    type: ArrayPart,
     required: true,
     content: {
-        type: 'object',
+        type: ObjectPart,
         required: true,
         content: {
-            amount: { type: 'number', required: true },
-            assetId: { type: 'string', required: false },
-            fee: { type: 'number', required: true },
-            feeAsset: { type: 'number', required: false },
-            attachment: { type: 'string', required: true },
-            id: { type: 'string', required: true },
-            recipient: { type: 'string', required: true },
-            sender: { type: 'string', required: true },
-            senderPublicKey: { type: 'string', required: true },
-            signature: { type: 'string', required: true },
-            timestamp: { type: 'number', required: true },
-            type: { type: 'number', required: true }
+            amount: { type: NumberPart, required: true },
+            assetId: { type: StringPart, required: false },
+            fee: { type: NumberPart, required: true },
+            feeAsset: { type: NumberPart, required: false },
+            attachment: { type: StringPart, required: true },
+            id: { type: StringPart, required: true },
+            recipient: { type: StringPart, required: true },
+            sender: { type: StringPart, required: true },
+            senderPublicKey: { type: StringPart, required: true },
+            signature: { type: StringPart, required: true },
+            timestamp: { type: NumberPart, required: true },
+            type: { type: NumberPart, required: true }
         } as IHash<TSomePart>
     }
 });

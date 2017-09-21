@@ -1,8 +1,7 @@
 import { BaseItem } from './BaseItem';
-import { getComponentConstructor, registerComponent } from './components';
 import { each, isObject } from 'ts-utils';
 
-import { IHash, IObjectPart, TSomePart } from './interfaces';
+import { IBaseItemConstructor, IHash, IObjectPart, TSomePart } from './interfaces';
 
 
 export class ObjectPart extends BaseItem<IObjectPart> {
@@ -18,7 +17,7 @@ export class ObjectPart extends BaseItem<IObjectPart> {
         this._childHash = Object.create(null);
 
         each(this.options.content, (config: TSomePart, key) => {
-            const Component = getComponentConstructor(config.type);
+            const Component = config.type as IBaseItemConstructor<any>;
             const localPath = path == null ? String(key) : `${myPath}.${key}`;
             this._childHash[key] = new Component(config, localPath);
         });
@@ -46,5 +45,3 @@ export class ObjectPart extends BaseItem<IObjectPart> {
     }
 
 }
-
-registerComponent('object', ObjectPart);

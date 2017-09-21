@@ -7,4 +7,3 @@ export * from './src/StringDatePart';
 export * from './src/NumberPart';
 export * from './src/ObjectPart';
 export * from './src/ArrayPart';
-export * from './src/components';

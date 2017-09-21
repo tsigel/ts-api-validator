@@ -1,8 +1,7 @@
 import { BaseItem } from './BaseItem';
-import { getComponentConstructor, registerComponent } from './components';
 import { isArray } from 'ts-utils';
 
-import { IArrayPart } from './interfaces';
+import { IArrayPart, IBaseItemConstructor } from './interfaces';
 
 
 export class ArrayPart extends BaseItem<IArrayPart> {
@@ -11,7 +10,7 @@ export class ArrayPart extends BaseItem<IArrayPart> {
 
     constructor(config: IArrayPart, path?: string) {
         super(config, path);
-        const Component = getComponentConstructor(this.options.content.type);
+        const Component = this.options.content.type as IBaseItemConstructor<any>;
         this._child = new Component(this.options.content);
     }
 
@@ -35,5 +34,3 @@ export class ArrayPart extends BaseItem<IArrayPart> {
     }
 
 }
-
-registerComponent('array', ArrayPart);

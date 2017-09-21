@@ -1,10 +1,8 @@
 import { BaseItem } from './BaseItem';
-import { registerComponent } from './components';
-
-import { IBooleanPart } from './interfaces';
+import { IPartialOptions } from './interfaces';
 
 
-export class BooleanPart extends BaseItem<IBooleanPart> {
+export class BooleanPart extends BaseItem<IPartialOptions<boolean>> {
 
     protected getValue(data: any): boolean {
         switch (typeof data) {
@@ -19,5 +17,3 @@ export class BooleanPart extends BaseItem<IBooleanPart> {
     }
 
 }
-
-registerComponent('boolean', BooleanPart);

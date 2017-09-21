@@ -1,6 +1,5 @@
-import { TSomePart } from './interfaces';
+import { IBaseItemConstructor, TSomePart } from './interfaces';
 import { BaseItem } from './BaseItem';
-import { getComponentConstructor } from './components';
 
 
 export class Schema {
@@ -9,7 +8,7 @@ export class Schema {
 
 
     constructor(config: TSomePart) {
-        const Component = getComponentConstructor(config.type);
+        const Component = config.type as IBaseItemConstructor<any>;
         this._children = new Component(config);
     }
 

@@ -1,10 +1,8 @@
 import { BaseItem } from './BaseItem';
-import { registerComponent } from './components';
-
-import { IStringPart } from './interfaces';
+import { IPartialOptions } from './interfaces';
 
 
-export class StringPart extends BaseItem<IStringPart> {
+export class StringPart extends BaseItem<IPartialOptions<string>> {
 
     protected getValue(data: any): string {
         switch (typeof data) {
@@ -18,5 +16,3 @@ export class StringPart extends BaseItem<IStringPart> {
     }
 
 }
-
-registerComponent('string', StringPart);

@@ -2,6 +2,11 @@ import { Schema } from '../index';
 import { balanceData, balanceSchema } from './balance.conf';
 import * as chai from 'chai';
 import { unconfirmedData, unconfirmedSchena } from './unconfirmed.conf';
+import { ObjectPart } from '../src/ObjectPart';
+import { NumberPart } from '../src/NumberPart';
+import { StringPart } from '../src/StringPart';
+import { DatePart } from '../src/DatePart';
+import { StringDatePart } from '../src/StringDatePart';
 
 
 describe('check balance schema', () => {
@@ -33,9 +38,9 @@ describe('check custom options', () => {
 
     it('check custom path', () => {
         schema = new Schema({
-            type: 'object',
+            type: ObjectPart,
             content: {
-                id: { type: 'number', path: 'some.path.id', required: true }
+                id: { type: NumberPart, path: 'some.path.id', required: true }
             }
         });
         const result = schema.parse({ some: { path: { id: '22' } } });
@@ -44,10 +49,10 @@ describe('check custom options', () => {
 
     it('check custom parser', () => {
         schema = new Schema({
-            type: 'object',
+            type: ObjectPart,
             content: {
                 id: {
-                    type: 'number', parseValue: (data: any) => {
+                    type: NumberPart, parseValue: (data: any) => {
                         return data ? 100 : 10
                     }, required: true
                 }
@@ -59,10 +64,10 @@ describe('check custom options', () => {
 
     it('check custom parser and path', () => {
         schema = new Schema({
-            type: 'object',
+            type: ObjectPart,
             content: {
                 id: {
-                    type: 'number', parseValue: (data: any) => {
+                    type: NumberPart, parseValue: (data: any) => {
                         return data ? 100 : 10
                     }, required: true, path: 'some.path.id'
                 }
@@ -73,9 +78,9 @@ describe('check custom options', () => {
 
     it('check default value', () => {
         schema = new Schema({
-            type: 'object',
+            type: ObjectPart,
             content: {
-                id: { type: 'number', defaultValue: 1 }
+                id: { type: NumberPart, defaultValue: 1 }
             }
         });
         chai.assert.deepEqual(schema.parse({ id: '2' }), { id: 2 });
@@ -93,7 +98,7 @@ describe('check components', () => {
         const getSchema = function (options?: any) {
             options = options || Object.create(null);
             return new Schema({
-                type: 'number',
+                type: NumberPart,
                 ...options
             });
         };
@@ -114,82 +119,82 @@ describe('check components', () => {
                 chai.assert.isNaN(schema.parse({}));
                 chai.assert.fail(true);
             } catch (e) {
-                chai.assert.equal(e.message, 'Required field type "number" "undefined" is empty!')
+                chai.assert.equal(e.message, 'Required field type "NumberPart" "undefined" is empty!')
             }
         });
 
-        describe('string', () => {
+    });
 
-            const getSchema = function (options?: any) {
-                options = options || Object.create(null);
-                return new Schema({
-                    type: 'string',
-                    ...options
-                });
-            };
+    describe('string', () => {
 
-            it('check parse', () => {
-                schema = getSchema();
-                chai.assert.isNull(schema.parse({}));
-                chai.assert.isNull(schema.parse([1, 2]));
-                chai.assert.isNull(schema.parse([1]));
-                chai.assert.equal(schema.parse(1), '1');
-                chai.assert.equal(schema.parse(null), null);
-                chai.assert.equal(schema.parse(undefined), null);
+        const getSchema = function (options?: any) {
+            options = options || Object.create(null);
+            return new Schema({
+                type: StringPart,
+                ...options
             });
+        };
 
-            it('is empty', () => {
-                schema = getSchema({ required: true });
-                try {
-                    chai.assert.isNaN(schema.parse({}));
-                    chai.assert.fail(true);
-                } catch (e) {
-                    chai.assert.equal(e.message, 'Required field type "string" "undefined" is empty!')
-                }
-            });
-
+        it('check parse', () => {
+            schema = getSchema();
+            chai.assert.isNull(schema.parse({}));
+            chai.assert.isNull(schema.parse([1, 2]));
+            chai.assert.isNull(schema.parse([1]));
+            chai.assert.equal(schema.parse(1), '1');
+            chai.assert.equal(schema.parse(null), null);
+            chai.assert.equal(schema.parse(undefined), null);
         });
 
-        describe('date', () => {
-
-            const getSchema = function (options?: any) {
-                options = options || Object.create(null);
-                return new Schema({
-                    type: 'date',
-                    ...options
-                });
-            };
-
-            it('check parse', () => {
-                schema = getSchema();
-                chai.assert.isNull(schema.parse({}));
-                chai.assert.isNull(schema.parse([1, 2]));
-                chai.assert.isNull(schema.parse([1]));
-                chai.assert.equal(Number(schema.parse(1502197861079)), 1502197861079);
-                chai.assert.equal(Number(schema.parse(new Date(1502197861079))), 1502197861079);
-            });
-
+        it('is empty', () => {
+            schema = getSchema({ required: true });
+            try {
+                chai.assert.isNaN(schema.parse({}));
+                chai.assert.fail(true);
+            } catch (e) {
+                chai.assert.equal(e.message, 'Required field type "StringPart" "undefined" is empty!')
+            }
         });
 
-        describe('string-date', () => {
+    });
 
-            const getSchema = function (options?: any) {
-                options = options || Object.create(null);
-                return new Schema({
-                    type: 'string-date',
-                    ...options
-                });
-            };
+    describe('date', () => {
 
-            it('check parse', () => {
-                schema = getSchema({ outPattern: 'DD.MM.YYYY' });
-                chai.assert.isNull(schema.parse({}));
-                chai.assert.isNull(schema.parse([1, 2]));
-                chai.assert.isNull(schema.parse([1]));
-                chai.assert.equal(schema.parse(1502197861079), '08.08.2017');
-                chai.assert.equal(schema.parse(new Date(1502197861079)), '08.08.2017');
+        const getSchema = function (options?: any) {
+            options = options || Object.create(null);
+            return new Schema({
+                type: DatePart,
+                ...options
             });
+        };
 
+        it('check parse', () => {
+            schema = getSchema();
+            chai.assert.isNull(schema.parse({}));
+            chai.assert.isNull(schema.parse([1, 2]));
+            chai.assert.isNull(schema.parse([1]));
+            chai.assert.equal(Number(schema.parse(1502197861079)), 1502197861079);
+            chai.assert.equal(Number(schema.parse(new Date(1502197861079))), 1502197861079);
+        });
+
+    });
+
+    describe('string-date', () => {
+
+        const getSchema = function (options?: any) {
+            options = options || Object.create(null);
+            return new Schema({
+                type: StringDatePart,
+                ...options
+            });
+        };
+
+        it('check parse', () => {
+            schema = getSchema({ outPattern: 'DD.MM.YYYY' });
+            chai.assert.isNull(schema.parse({}));
+            chai.assert.isNull(schema.parse([1, 2]));
+            chai.assert.isNull(schema.parse([1]));
+            chai.assert.equal(schema.parse(1502197861079), '08.08.2017');
+            chai.assert.equal(schema.parse(new Date(1502197861079)), '08.08.2017');
         });
 
     });

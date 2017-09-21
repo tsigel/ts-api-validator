@@ -1,39 +1,43 @@
 import { Schema } from '../index';
-import { INumberPart } from '../src/interfaces';
+import { ObjectPart } from '../src/ObjectPart';
+import { StringPart } from '../src/StringPart';
+import { ArrayPart } from '../src/ArrayPart';
+import { NumberPart } from '../src/NumberPart';
+import { BooleanPart } from '../src/BooleanPart';
 
 export const balanceSchema = new Schema({
-    type: 'object',
+    type: ObjectPart,
     required: true,
     content: {
-        address: { type: 'string', required: true },
+        address: { type: StringPart, required: true },
         balances: {
-            type: 'array',
+            type: ArrayPart,
             required: true,
             content: {
-                type: 'object',
+                type: ObjectPart,
                 required: true,
                 content: {
-                    assetId: { type: 'string', required: true },
-                    balance: { type: 'number', required: true },
-                    reissuable: { type: 'boolean', required: true },
-                    quantity: { type: 'number', required: true },
+                    assetId: { type: StringPart, required: true },
+                    balance: { type: NumberPart, required: true },
+                    reissuable: { type: BooleanPart, required: true },
+                    quantity: { type: NumberPart, required: true },
                     issueTransaction: {
-                        type: 'object',
+                        type: ObjectPart,
                         required: true,
                         content: {
-                            type: { type: 'number', required: true } as INumberPart,
-                            id: { type: 'string', required: true },
-                            sender: { type: 'string', required: true },
-                            senderPublicKey: { type: 'string', required: true },
-                            fee: { type: 'number', required: true },
-                            timestamp: { type: 'number', required: true },
-                            signature: { type: 'string', required: true },
-                            assetId: { type: 'string', required: true },
-                            name: { type: 'string', required: true },
-                            description: { type: 'string', required: true },
-                            quantity: { type: 'number', required: true },
-                            decimals: { type: 'number', required: true },
-                            reissuable: { type: 'boolean', required: true }
+                            type: { type: NumberPart, required: true },
+                            id: { type: StringPart, required: true },
+                            sender: { type: StringPart, required: true },
+                            senderPublicKey: { type: StringPart, required: true },
+                            fee: { type: NumberPart, required: true },
+                            timestamp: { type: NumberPart, required: true },
+                            signature: { type: StringPart, required: true },
+                            assetId: { type: StringPart, required: true },
+                            name: { type: StringPart, required: true },
+                            description: { type: StringPart, required: true },
+                            quantity: { type: NumberPart, required: true },
+                            decimals: { type: NumberPart, required: true },
+                            reissuable: { type: BooleanPart, required: true }
                         }
                     }
                 }
