@@ -1,12 +1,12 @@
-import { BaseItem } from './BasePart';
+import { BasePart } from './BasePart';
 import { isArray } from 'ts-utils';
 
 import { IArrayPart, IBaseItemConstructor } from './interfaces';
 
 
-export class ArrayPart extends BaseItem<IArrayPart> {
+export class ArrayPart extends BasePart<IArrayPart> {
 
-    private _child: BaseItem<any>;
+    private _child: BasePart<any>;
 
     constructor(config: IArrayPart, path?: string) {
         super(config, path);

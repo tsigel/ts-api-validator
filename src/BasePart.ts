@@ -2,7 +2,7 @@ import { get } from 'ts-utils';
 import { IPartialOptions } from './interfaces';
 
 
-export abstract class BaseItem<T extends IPartialOptions<any>> {
+export abstract class BasePart<T extends IPartialOptions<any>> {
 
     protected options: T;
     protected path: string;

@@ -1,8 +1,8 @@
-import { BaseItem } from './BasePart';
+import { BasePart } from './BasePart';
 import { IPartialOptions } from './interfaces';
 
 
-export class NumberPart extends BaseItem<IPartialOptions<number>> {
+export class NumberPart extends BasePart<IPartialOptions<number>> {
 
     protected getValue(data: any): number {
         switch (typeof data) {

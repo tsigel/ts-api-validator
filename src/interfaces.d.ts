@@ -1,4 +1,4 @@
-import { BaseItem } from './BasePart';
+import { BasePart } from './BasePart';
 import { StringDatePart } from './StringDatePart';
 import { ObjectPart } from './ObjectPart';
 import { ArrayPart } from './ArrayPart';
@@ -39,5 +39,5 @@ export interface IHash<T> {
 }
 
 export interface IBaseItemConstructor<T> {
-    new (options: IPartialOptions<T>, path?: string): BaseItem<IPartialOptions<T>>
+    new (options: IPartialOptions<T>, path?: string): BasePart<IPartialOptions<T>>
 }

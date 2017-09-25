@@ -1,11 +1,11 @@
-import { BaseItem } from './BasePart';
+import { BasePart } from './BasePart';
 import { OUT_DATE_PATTERN } from './config';
 
 import { IStringDatePart } from './interfaces';
 import { date, IFilter } from 'ts-utils';
 
 
-export class StringDatePart extends BaseItem<IStringDatePart> {
+export class StringDatePart extends BasePart<IStringDatePart> {
 
     protected dateProcessor: IFilter<Date, string>;
 

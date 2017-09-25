@@ -1,8 +1,8 @@
-import { BaseItem } from './BasePart';
+import { BasePart } from './BasePart';
 import { IPartialOptions } from './interfaces';
 
 
-export class DatePart extends BaseItem<IPartialOptions<Date>> {
+export class DatePart extends BasePart<IPartialOptions<Date>> {
 
     protected getValue(data: any): Date {
 

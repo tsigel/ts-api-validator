@@ -1,10 +1,10 @@
 import { IBaseItemConstructor, TSomePart } from './interfaces';
-import { BaseItem } from './BasePart';
+import { BasePart } from './BasePart';
 
 
 export class Schema {
 
-    private _children: BaseItem<any>;
+    private _children: BasePart<any>;
 
 
     constructor(config: TSomePart) {

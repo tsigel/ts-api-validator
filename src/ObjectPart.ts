@@ -1,12 +1,12 @@
-import { BaseItem } from './BasePart';
+import { BasePart } from './BasePart';
 import { each, isObject } from 'ts-utils';
 
 import { IBaseItemConstructor, IHash, IObjectPart, TSomePart } from './interfaces';
 
 
-export class ObjectPart extends BaseItem<IObjectPart> {
+export class ObjectPart extends BasePart<IObjectPart> {
 
-    private _childHash: IHash<BaseItem<any>>;
+    private _childHash: IHash<BasePart<any>>;
 
 
     constructor(config: IObjectPart, path?: string) {

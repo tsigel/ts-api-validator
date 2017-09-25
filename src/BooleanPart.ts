@@ -1,8 +1,8 @@
-import { BaseItem } from './BasePart';
+import { BasePart } from './BasePart';
 import { IPartialOptions } from './interfaces';
 
 
-export class BooleanPart extends BaseItem<IPartialOptions<boolean>> {
+export class BooleanPart extends BasePart<IPartialOptions<boolean>> {
 
     protected getValue(data: any): boolean {
         switch (typeof data) {
