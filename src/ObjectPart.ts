@@ -1,4 +1,4 @@
-import { BaseItem } from './BaseItem';
+import { BaseItem } from './BasePart';
 import { each, isObject } from 'ts-utils';
 
 import { IBaseItemConstructor, IHash, IObjectPart, TSomePart } from './interfaces';

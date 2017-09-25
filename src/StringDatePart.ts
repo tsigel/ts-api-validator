@@ -1,4 +1,4 @@
-import { BaseItem } from './BaseItem';
+import { BaseItem } from './BasePart';
 import { OUT_DATE_PATTERN } from './config';
 
 import { IStringDatePart } from './interfaces';

@@ -48,7 +48,7 @@ export abstract class BaseItem<T extends IPartialOptions<any>> {
     }
 
     protected getPath(): string {
-        return this.options.path || this.path;
+        return this.options.path === null ? null : this.options.path || this.path;
     }
 
     protected isEmpty(data: any): boolean {

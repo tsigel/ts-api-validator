@@ -9,6 +9,22 @@ import { DatePart } from '../src/DatePart';
 import { StringDatePart } from '../src/StringDatePart';
 
 
+it('check param without path', () => {
+    const schema = new Schema({
+        type: ObjectPart,
+        content: {
+            test: {
+                type: StringPart, path: null, parseValue: function (data) {
+                    chai.assert.instanceOf(data, Object);
+                    chai.assert.equal(data.test, 'test');
+                }
+            }
+        }
+    });
+
+    schema.parse({ test: 'test' });
+});
+
 describe('check balance schema', () => {
 
     it('schema created', () => {

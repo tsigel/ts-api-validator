@@ -1,4 +1,4 @@
-import { BaseItem } from './BaseItem';
+import { BaseItem } from './BasePart';
 import { isArray } from 'ts-utils';
 
 import { IArrayPart, IBaseItemConstructor } from './interfaces';

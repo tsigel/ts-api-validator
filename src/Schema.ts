@@ -1,5 +1,5 @@
 import { IBaseItemConstructor, TSomePart } from './interfaces';
-import { BaseItem } from './BaseItem';
+import { BaseItem } from './BasePart';
 
 
 export class Schema {

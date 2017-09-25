@@ -1,4 +1,4 @@
-import { BaseItem } from './BaseItem';
+import { BaseItem } from './BasePart';
 import { StringDatePart } from './StringDatePart';
 import { ObjectPart } from './ObjectPart';
 import { ArrayPart } from './ArrayPart';
