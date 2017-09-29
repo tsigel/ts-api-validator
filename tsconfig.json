@@ -4,6 +4,10 @@
     "module": "amd",
     "target": "es5",
     "types": [],
+    "lib": [
+      "es2015.promise",
+      "es2015"
+    ],
     "paths": {
       "ts-utils": [
         "node_modules/ts-utils/index.ts"

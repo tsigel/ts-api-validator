@@ -23,17 +23,22 @@ export class ObjectPart extends BasePart<IObjectPart> {
         });
     }
 
-    public process(data: any): any {
-        const value = super.process(data);
-        if (value && isObject(value)) {
-            const result = Object.create(null);
-            Object.keys(this._childHash).forEach((name) => {
-                result[name] = this._childHash[name].process(data);
-            });
-            return result;
-        } else {
-            return value;
-        }
+    public process(data: any): Promise<any> {
+        return super.process(data).then((value) => {
+            if (value && isObject(value)) {
+                const promises = [];
+                const result = Object.create(null);
+                Object.keys(this._childHash).forEach((name) => {
+                    const promise = this._childHash[name].process(data).then((itemValue) => {
+                        result[name] = itemValue;
+                    });
+                    promises.push(promise);
+                });
+                return Promise.all(promises).then(() => result);
+            } else {
+                return value;
+            }
+        });
     }
 
     protected getValue(data: any): Array<any> {

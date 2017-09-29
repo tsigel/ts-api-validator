@@ -12,7 +12,7 @@ export class Schema {
         this._children = new Component(config);
     }
 
-    public parse(data: any): any {
+    public parse(data: any): Promise<any> {
         return this._children.process(data);
     }
 

@@ -14,15 +14,14 @@ export class ArrayPart extends BasePart<IArrayPart> {
         this._child = new Component(this.options.content);
     }
 
-    public process(data: any): any {
-        const value = super.process(data);
-        if (value && isArray(value)) {
-            return value.map((data) => {
-                return this._child.process(data);
-            });
-        } else {
-            return value;
-        }
+    public process(data: any): Promise<any> {
+        return super.process(data).then((value) => {
+            if (value && isArray(value)) {
+                return Promise.all(value.map((item) => this._child.process(item)));
+            } else {
+                return value;
+            }
+        });
     }
 
     protected getValue(data: any): Array<any> {

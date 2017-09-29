@@ -23,28 +23,31 @@ export abstract class BasePart<T extends IPartialOptions<any>> {
         }
     }
 
-    public process(data: any): any {
+    public process(data: any): Promise<any> {
         const path = this.getPath();
-        let value = this.getValue(this.getDataByPath(data, path));
-        const isEmpty = this.isEmpty(value);
-        const isValid = this.isValid(value);
-        const type = (this.options.type as any).name || (this.options.type as any).prototype.constructor.name;
+        const result = this.getValue(this.getDataByPath(data, path));
 
-        if (this.options.required) {
-            if (isEmpty) {
-                throw new Error(`Required field type "${type}" "${path}" is empty!`);
+        return BasePart.toPromise(result).then((value) => {
+            const isEmpty = this.isEmpty(value);
+            const isValid = this.isValid(value);
+            const type = (this.options.type as any).name || (this.options.type as any).prototype.constructor.name;
+
+            if (this.options.required) {
+                if (isEmpty) {
+                    throw new Error(`Required field type "${type}" "${path}" is empty!`);
+                }
             }
-        }
 
-        if (('defaultValue' in this.options) && isEmpty) {
-            value = this.options.defaultValue;
-        } else {
-            if (!isValid) {
-                throw new Error(`Field "${path}" is invalid!`);
+            if (('defaultValue' in this.options) && isEmpty) {
+                value = this.options.defaultValue;
+            } else {
+                if (!isValid) {
+                    throw new Error(`Field "${path}" is invalid!`);
+                }
             }
-        }
 
-        return value;
+            return value;
+        });
     }
 
     protected getPath(): string {
@@ -74,5 +77,13 @@ export abstract class BasePart<T extends IPartialOptions<any>> {
     }
 
     protected abstract getValue(data: any): any
+
+    private static isPromise(some: any): boolean {
+        return some && some.then && typeof some.then === 'function';
+    }
+
+    private static toPromise<T>(some: T|Promise<T>): Promise<T> {
+        return BasePart.isPromise(some) ? some as Promise<T> : Promise.resolve(some as T);
+    }
 
 }
