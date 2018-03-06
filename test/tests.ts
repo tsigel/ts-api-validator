@@ -7,6 +7,10 @@ import { StringPart } from '../src/StringPart';
 import { NumberPart } from '../src/NumberPart';
 import { StringDatePart } from '../src/StringDatePart';
 import { DatePart } from '../src/DatePart';
+import { BasePart } from '../src/BasePart';
+import { Signal } from 'ts-utils';
+import { IPartialOptions } from '../src/interfaces';
+import { ArrayPart } from '../src/ArrayPart';
 
 
 it('check param without path', () => {
@@ -51,6 +55,41 @@ describe('check unconfirmed schema', () => {
     });
 });
 
+it('check custom part with roots scopes', (done) => {
+
+    const signal = new Signal<Array<any>>();
+
+    class MyPart extends BasePart<IPartialOptions<number>> {
+
+        public getValue(value: number, roots): number {
+            signal.dispatch(roots);
+            return value;
+        }
+
+    }
+
+    const schema = new Schema({
+        type: ObjectPart,
+        content: {
+            list: {
+                type: ArrayPart,
+                content: {
+                    type: MyPart
+                }
+            }
+        }
+    });
+
+    signal.on((roots) => {
+        chai.assert.equal(roots.length, 1);
+    });
+
+    schema.parse({
+        list: [1]
+    }).then(() => done());
+
+});
+
 describe('check custom options', () => {
     let schema;
 
@@ -72,7 +111,7 @@ describe('check custom options', () => {
             content: {
                 id: {
                     type: NumberPart, parseValue: (data: any) => {
-                        return data ? 100 : 10
+                        return data ? 100 : 10;
                     }, required: true
                 }
             }
@@ -94,7 +133,7 @@ describe('check custom options', () => {
             content: {
                 id: {
                     type: NumberPart, parseValue: (data: any) => {
-                        return data ? 100 : 10
+                        return data ? 100 : 10;
                     }, required: true, path: 'some.path.id'
                 }
             }
@@ -209,8 +248,8 @@ describe('check custom options', () => {
                 schema.parse({}).then(() => {
                     chai.assert.fail(true);
                 }).catch((e) => {
-                    chai.assert.equal(e.message, 'Required field type "StringPart" "undefined" is empty!')
-                }).then(done)
+                    chai.assert.equal(e.message, 'Required field type "StringPart" "undefined" is empty!');
+                }).then(done);
             });
 
         });
