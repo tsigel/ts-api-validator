@@ -14,8 +14,6 @@
     "index.js"
   ],
   "dependencies": {
-    "dts-gen": "^0.5.6",
-    "dts-generator": "^2.1.0",
     "ts-utils": "^4.0.2"
   },
   "scripts": {
