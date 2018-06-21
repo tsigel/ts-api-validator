@@ -15,7 +15,7 @@
     "index.js"
   ],
   "dependencies": {
-    "ts-utils": "^4.0.2"
+    "ts-utils": "^6.0.2"
   },
   "scripts": {
     "build": "npm run compile && npm run browserify && npm run uglify && rm -rf ./tmp",
