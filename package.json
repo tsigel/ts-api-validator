@@ -6,6 +6,10 @@
     "type": "git",
     "url": "https://github.com/tsigel/ts-api-validator.git"
   },
+  "author": {
+    "email": "tsddaniil@gnail.com",
+    "name": "Daniil"
+  },
   "main": "dist/ts-api-validator.js",
   "types": "dist/index.d.ts",
   "files": [
