@@ -8,3 +8,7 @@ export * from './src/NumberPart';
 export * from './src/ObjectPart';
 export * from './src/ArrayPart';
 export * from './src/BasePart';
+import * as utilsModule from './src/utils';
+
+export const utils = utilsModule;
+

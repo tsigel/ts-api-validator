@@ -1,35 +1,28 @@
-import { BasePart } from './BasePart';
 import { OUT_DATE_PATTERN } from './config';
-
 import { IStringDatePart } from './interfaces';
-import { date, IFilter } from 'ts-utils';
+import { date, ICallback } from './utils';
+import { BasePart } from './BasePart';
+import { DatePart } from './DatePart';
 
 
 export class StringDatePart extends BasePart<IStringDatePart> {
 
-    protected dateProcessor: IFilter<Date, string>;
+    protected readonly dateProcessor: ICallback<any, string>;
+    protected readonly datePart: DatePart;
 
     constructor(config: IStringDatePart, path?: string) {
         super(config, path);
         this.dateProcessor = date(this.options.outPattern || OUT_DATE_PATTERN);
+        this.datePart = new DatePart({ type: DatePart });
     }
 
-    protected getValue(data: any): string {
-        let date;
+    protected isValid(date: string): boolean {
+        return true;
+    }
 
-        if (data instanceof Date) {
-            date = data;
-        }
-
-        if (typeof data === 'number') {
-            date = new Date(data);
-        }
-
-        if (date) {
-            return this.dateProcessor(date);
-        }
-
-        return null;
+    protected getValue(data: any): string | null | undefined {
+        const value = this.datePart.process(data);
+        return value == null ? null : this.dateProcessor(value);
     }
 
 }

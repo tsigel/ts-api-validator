@@ -1,15 +1,15 @@
-import { get } from 'ts-utils';
 import { IPartialOptions } from './interfaces';
+import { assocPath } from './utils';
 
 
 export abstract class BasePart<T extends IPartialOptions<any>> {
 
     protected options: T;
-    protected path: string;
+    protected path: string | null;
 
     constructor(options: T, path?: string) {
         this.options = options;
-        this.path = path;
+        this.path = path || null;
 
         if (this.options.isEmpty) {
             this.isEmpty = this.options.isEmpty;
@@ -23,16 +23,18 @@ export abstract class BasePart<T extends IPartialOptions<any>> {
         }
     }
 
-    public process(data: any): any {
+    public process(data: any): T['defaultValue'] {
         const path = this.getPath();
-        let value = this.getValue(this.getDataByPath(data, path));
+        const pathData = this.getDataByPath(data, path);
+        let value = pathData == null ? pathData : this.getValue(pathData);
         const isEmpty = this.isEmpty(value);
         const isValid = this.isValid(value);
         const type = (this.options.type as any).name || (this.options.type as any).prototype.constructor.name;
+        const pathTpl = path ? ` with path "${path}" ` : ' ';
 
         if (this.options.required) {
             if (isEmpty) {
-                throw new Error(`Required field type "${type}" "${path}" is empty!`);
+                throw new Error(`Required field type "${type}"${pathTpl}is empty!`);
             }
         }
 
@@ -40,14 +42,14 @@ export abstract class BasePart<T extends IPartialOptions<any>> {
             value = this.options.defaultValue;
         } else {
             if (!isValid) {
-                throw new Error(`Field "${path}" is invalid!`);
+                throw new Error(`Field${pathTpl}is invalid!`);
             }
         }
 
         return value;
     }
 
-    protected getPath(): string {
+    protected getPath(): string | null {
         return this.options.path === null ? null : this.options.path || this.path;
     }
 
@@ -59,15 +61,15 @@ export abstract class BasePart<T extends IPartialOptions<any>> {
         return true;
     }
 
-    protected getDataByPath(data: any, path: string): any {
+    protected getDataByPath(data: any, path: string | null): any {
         if (this.options.parseValue) {
             if (path) {
-                return this.options.parseValue(get(data, path));
+                return this.options.parseValue(assocPath(path.split('.'), data));
             } else {
                 return this.options.parseValue(data);
             }
         } else if (path != null) {
-            return get(data, path);
+            return assocPath(path.split('.'), data);
         } else {
             return data;
         }

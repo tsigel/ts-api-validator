@@ -4,7 +4,7 @@ import { IPartialOptions } from './interfaces';
 
 export class BooleanPart extends BasePart<IPartialOptions<boolean>> {
 
-    protected getValue(data: any): boolean {
+    protected getValue(data: any): boolean | null {
         switch (typeof data) {
             case 'boolean':
                 return data;
@@ -12,7 +12,7 @@ export class BooleanPart extends BasePart<IPartialOptions<boolean>> {
             case 'number':
                 return Boolean(data);
             default:
-                return null;
+                return data == null ? data : null;
         }
     }
 

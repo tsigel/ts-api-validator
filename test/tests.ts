@@ -1,22 +1,24 @@
+import 'jest';
 import { Schema } from '../index';
-import { balanceData, balanceSchema } from './balance.conf';
-import * as chai from 'chai';
-import { unconfirmedData, unconfirmedSchena } from './unconfirmed.conf';
 import { ObjectPart } from '../src/ObjectPart';
 import { NumberPart } from '../src/NumberPart';
 import { StringPart } from '../src/StringPart';
 import { DatePart } from '../src/DatePart';
 import { StringDatePart } from '../src/StringDatePart';
+import { balanceData, balanceSchema } from './balance.conf';
+import { unconfirmedData, unconfirmedSchena } from './unconfirmed.conf';
 
 
-it('check param without path', () => {
+it('Check param without path', () => {
     const schema = new Schema({
         type: ObjectPart,
         content: {
             test: {
-                type: StringPart, path: null, parseValue: function (data) {
-                    chai.assert.instanceOf(data, Object);
-                    chai.assert.equal(data.test, 'test');
+                type: StringPart,
+                path: null,
+                parseValue: function (data) {
+                    expect(typeof data).toBe('object');
+                    expect(data.test).toBe('test');
                 }
             }
         }
@@ -25,34 +27,34 @@ it('check param without path', () => {
     schema.parse({ test: 'test' });
 });
 
-describe('check balance schema', () => {
+describe('Check balance schema', () => {
 
-    it('schema created', () => {
-        chai.assert.instanceOf(balanceSchema, Schema);
+    it('Schema created', () => {
+        expect(balanceSchema).toBeInstanceOf(Schema);
     });
 
-    it('parse', () => {
+    it('Parse', () => {
         const result: typeof balanceData = balanceSchema.parse(balanceData);
-        chai.assert.deepEqual(result, balanceData);
+        expect(result).toEqual(balanceData);
     });
 });
 
-describe('check unconfirmed schema', () => {
+describe('Check unconfirmed schema', () => {
 
-    it('schema created', () => {
-        chai.assert.instanceOf(unconfirmedSchena, Schema);
+    it('Schema created', () => {
+        expect(unconfirmedSchena).toBeInstanceOf(Schema);
     });
 
-    it('parse', () => {
+    it('Parse', () => {
         const result: typeof unconfirmedData = unconfirmedSchena.parse(unconfirmedData);
-        chai.assert.deepEqual(result, unconfirmedData);
+        expect(result).toEqual(unconfirmedData);
     });
 });
 
-describe('check custom options', () => {
+describe('Check custom options', () => {
     let schema;
 
-    it('check custom path', () => {
+    it('Check custom path', () => {
         schema = new Schema({
             type: ObjectPart,
             content: {
@@ -60,56 +62,60 @@ describe('check custom options', () => {
             }
         });
         const result = schema.parse({ some: { path: { id: '22' } } });
-        chai.assert.deepEqual(result, { id: 22 });
+        expect(result).toEqual({ id: 22 });
     });
 
-    it('check custom parser', () => {
+    it('Check custom parser', () => {
         schema = new Schema({
             type: ObjectPart,
             content: {
                 id: {
-                    type: NumberPart, parseValue: (data: any) => {
-                        return data ? 100 : 10
-                    }, required: true
+                    type: NumberPart,
+                    parseValue: (data: any) => {
+                        return data ? 100 : 10;
+                    },
+                    required: true
                 }
             }
         });
-        chai.assert.deepEqual(schema.parse({ id: true }), { id: 100 });
-        chai.assert.deepEqual(schema.parse({ id: false }), { id: 10 });
+        expect(schema.parse({ id: true })).toEqual({ id: 100 });
+        expect(schema.parse({ id: false })).toEqual({ id: 10 });
     });
 
-    it('check custom parser and path', () => {
+    it('Check custom parser and path', () => {
         schema = new Schema({
             type: ObjectPart,
             content: {
                 id: {
-                    type: NumberPart, parseValue: (data: any) => {
-                        return data ? 100 : 10
-                    }, required: true, path: 'some.path.id'
+                    type: NumberPart,
+                    parseValue: (data: any) => {
+                        return data ? 100 : 10;
+                    },
+                    required: true, path: 'some.path.id'
                 }
             }
         });
-        chai.assert.deepEqual(schema.parse({ some: { path: { id: true } } }), { id: 100 });
+        expect(schema.parse({ some: { path: { id: true } } })).toEqual({ id: 100 });
     });
 
-    it('check default value', () => {
+    it('Check default value', () => {
         schema = new Schema({
             type: ObjectPart,
             content: {
                 id: { type: NumberPart, defaultValue: 1 }
             }
         });
-        chai.assert.deepEqual(schema.parse({ id: '2' }), { id: 2 });
-        chai.assert.deepEqual(schema.parse({}), { id: 1 });
+        expect(schema.parse({ id: '2' })).toEqual({ id: 2 });
+        expect(schema.parse({})).toEqual({ id: 1 });
     });
 
 });
 
-describe('check components', () => {
+describe('Check components', () => {
 
     let schema;
 
-    describe('number', () => {
+    describe('Number', () => {
 
         const getSchema = function (options?: any) {
             options = options || Object.create(null);
@@ -119,29 +125,29 @@ describe('check components', () => {
             });
         };
 
-        it('check parse', () => {
+        it('Check parse', () => {
             schema = getSchema();
-            chai.assert.isNull(schema.parse({}));
-            chai.assert.isNull(schema.parse([1, 2]));
-            chai.assert.isNull(schema.parse([1]));
-            chai.assert.equal(schema.parse('1'), 1);
-            chai.assert.equal(schema.parse(null), null);
-            chai.assert.equal(schema.parse(undefined), null);
+            expect(schema.parse({})).toBe(null);
+            expect(schema.parse([1, 2])).toBe(null);
+            expect(schema.parse([1])).toBe(null);
+            expect(schema.parse('1')).toBe(1);
+            expect(schema.parse(null)).toBe(null);
+            expect(schema.parse(undefined)).toBe(undefined);
         });
 
-        it('is empty', () => {
+        it('Is empty', () => {
             schema = getSchema({ required: true });
             try {
-                chai.assert.isNaN(schema.parse({}));
-                chai.assert.fail(true);
+                expect(isNaN(schema.parse(undefined))).toBe(true);
+                fail();
             } catch (e) {
-                chai.assert.equal(e.message, 'Required field type "NumberPart" "undefined" is empty!')
+                expect(e.message).toBe('Required field type "NumberPart" is empty!');
             }
         });
 
     });
 
-    describe('string', () => {
+    describe('String', () => {
 
         const getSchema = function (options?: any) {
             options = options || Object.create(null);
@@ -151,29 +157,29 @@ describe('check components', () => {
             });
         };
 
-        it('check parse', () => {
+        it('Check parse', () => {
             schema = getSchema();
-            chai.assert.isNull(schema.parse({}));
-            chai.assert.isNull(schema.parse([1, 2]));
-            chai.assert.isNull(schema.parse([1]));
-            chai.assert.equal(schema.parse(1), '1');
-            chai.assert.equal(schema.parse(null), null);
-            chai.assert.equal(schema.parse(undefined), null);
+            expect(schema.parse({})).toBe(null);
+            expect(schema.parse([1, 2])).toBe(null);
+            expect(schema.parse([1])).toBe(null);
+            expect(schema.parse(1)).toBe('1');
+            expect(schema.parse(null)).toBe(null);
+            expect(schema.parse(undefined)).toBe(undefined);
         });
 
-        it('is empty', () => {
+        it('Is empty', () => {
             schema = getSchema({ required: true });
             try {
-                chai.assert.isNaN(schema.parse({}));
-                chai.assert.fail(true);
+                expect(isNaN(schema.parse({}))).toBe(true);
+                fail();
             } catch (e) {
-                chai.assert.equal(e.message, 'Required field type "StringPart" "undefined" is empty!')
+                expect(e.message).toBe('Required field type "StringPart" is empty!');
             }
         });
 
     });
 
-    describe('date', () => {
+    describe('Date', () => {
 
         const getSchema = function (options?: any) {
             options = options || Object.create(null);
@@ -183,18 +189,18 @@ describe('check components', () => {
             });
         };
 
-        it('check parse', () => {
+        it('Check parse', () => {
             schema = getSchema();
-            chai.assert.isNull(schema.parse({}));
-            chai.assert.isNull(schema.parse([1, 2]));
-            chai.assert.isNull(schema.parse([1]));
-            chai.assert.equal(Number(schema.parse(1502197861079)), 1502197861079);
-            chai.assert.equal(Number(schema.parse(new Date(1502197861079))), 1502197861079);
+            expect(schema.parse({})).toBe(null);
+            expect(schema.parse([1, 2])).toBe(null);
+            expect(schema.parse([1])).toBe(null);
+            expect(Number(schema.parse(1502197861079))).toBe(1502197861079);
+            expect(Number(schema.parse(new Date(1502197861079)))).toBe(1502197861079);
         });
 
     });
 
-    describe('string-date', () => {
+    describe('StringDate', () => {
 
         const getSchema = function (options?: any) {
             options = options || Object.create(null);
@@ -204,13 +210,13 @@ describe('check components', () => {
             });
         };
 
-        it('check parse', () => {
+        it('Check parse', () => {
             schema = getSchema({ outPattern: 'DD.MM.YYYY' });
-            chai.assert.isNull(schema.parse({}));
-            chai.assert.isNull(schema.parse([1, 2]));
-            chai.assert.isNull(schema.parse([1]));
-            chai.assert.equal(schema.parse(1502197861079), '08.08.2017');
-            chai.assert.equal(schema.parse(new Date(1502197861079)), '08.08.2017');
+            expect(schema.parse({})).toBe(null);
+            expect(schema.parse([1, 2])).toBe(null);
+            expect(schema.parse([1])).toBe(null);
+            expect(schema.parse(1502197861079)).toBe('08.08.2017');
+            expect(schema.parse(new Date(1502197861079))).toBe('08.08.2017');
         });
 
     });

@@ -1,5 +1,5 @@
 import { Schema } from '../index';
-import { IHash, TSomePart } from '../src/interfaces';
+import { TSomePart } from '../src/interfaces';
 import { ArrayPart } from '../src/ArrayPart';
 import { ObjectPart } from '../src/ObjectPart';
 import { NumberPart } from '../src/NumberPart';
@@ -15,7 +15,7 @@ export const unconfirmedSchena = new Schema({
             amount: { type: NumberPart, required: true },
             assetId: { type: StringPart, required: false },
             fee: { type: NumberPart, required: true },
-            feeAsset: { type: NumberPart, required: false },
+            feeAsset: { type: StringPart, required: false },
             attachment: { type: StringPart, required: true },
             id: { type: StringPart, required: true },
             recipient: { type: StringPart, required: true },
@@ -24,7 +24,7 @@ export const unconfirmedSchena = new Schema({
             signature: { type: StringPart, required: true },
             timestamp: { type: NumberPart, required: true },
             type: { type: NumberPart, required: true }
-        } as IHash<TSomePart>
+        } as Record<string, TSomePart>
     }
 });
 

@@ -4,8 +4,8 @@ import { ObjectPart } from './ObjectPart';
 import { ArrayPart } from './ArrayPart';
 
 export interface IPartialOptions<T> {
-    path?: string;
-    type: IBaseItemConstructor<T>;
+    type: IBaseItemConstructor<T, any>;
+    path?: string | null;
     defaultValue?: T;
     required?: boolean;
     isEmpty?: (value: any) => boolean;
@@ -18,12 +18,12 @@ export interface IStringDatePart extends IPartialOptions<string> {
     outPattern?: string;
 }
 
-export interface IObjectPart extends IPartialOptions<IHash<any>> {
+export interface IObjectPart extends IPartialOptions<Record<string, any>> {
     type: typeof ObjectPart;
-    content: IHash<TSomePart>;
+    content: Record<string, TSomePart>;
 }
 
-export interface IArrayPart extends IPartialOptions<Array<any>> {
+export interface IArrayPart<T> extends IPartialOptions<Array<T>> {
     type: typeof ArrayPart;
     content: TSomePart;
 }
@@ -31,13 +31,9 @@ export interface IArrayPart extends IPartialOptions<Array<any>> {
 export type TSomePart =
     IStringDatePart
     | IObjectPart
-    | IArrayPart
+    | IArrayPart<any>
     | IPartialOptions<any>;
 
-export interface IHash<T> {
-    [key: string]: T;
-}
-
-export interface IBaseItemConstructor<T> {
-    new (options: IPartialOptions<T>, path?: string): BasePart<IPartialOptions<T>>
+export interface IBaseItemConstructor<T, OPTIONS extends IPartialOptions<T>> {
+    new(options: OPTIONS, path?: string): BasePart<IPartialOptions<T>>
 }

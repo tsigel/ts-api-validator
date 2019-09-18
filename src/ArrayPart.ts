@@ -1,23 +1,21 @@
 import { BasePart } from './BasePart';
-import { isArray } from 'ts-utils';
-
 import { IArrayPart, IBaseItemConstructor } from './interfaces';
 
 
-export class ArrayPart extends BasePart<IArrayPart> {
+export class ArrayPart<T> extends BasePart<IArrayPart<T>> {
 
     private _child: BasePart<any>;
 
-    constructor(config: IArrayPart, path?: string) {
+    constructor(config: IArrayPart<T>, path?: string) {
         super(config, path);
-        const Component = this.options.content.type as IBaseItemConstructor<any>;
+        const Component = this.options.content.type as IBaseItemConstructor<any, any>;
         this._child = new Component(this.options.content);
     }
 
     public process(data: any): any {
         const value = super.process(data);
-        if (value && isArray(value)) {
-            return value.map((data) => {
+        if (value && Array.isArray(value)) {
+            return value.map((data: any) => {
                 return this._child.process(data);
             });
         } else {
@@ -25,8 +23,8 @@ export class ArrayPart extends BasePart<IArrayPart> {
         }
     }
 
-    protected getValue(data: any): Array<any> {
-        if (isArray(data)) {
+    protected getValue(data: any): Array<any> | null {
+        if (Array.isArray(data)) {
             return data;
         } else {
             return null;

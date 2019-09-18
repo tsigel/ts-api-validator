@@ -8,7 +8,7 @@ export class Schema {
 
 
     constructor(config: TSomePart) {
-        const Component = config.type as IBaseItemConstructor<any>;
+        const Component = config.type as IBaseItemConstructor<any, any>;
         this._children = new Component(config);
     }
 

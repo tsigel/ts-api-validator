@@ -1,19 +1,19 @@
 {
   "compilerOptions": {
     "baseUrl": "",
-    "module": "amd",
-    "target": "es5",
+    "module": "es2015",
+    "target": "es2017",
     "types": [],
-    "paths": {
-      "ts-utils": [
-        "node_modules/ts-utils/index.ts"
-      ]
-    }
+    "strict": true,
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "dist"
   },
   "include": [
     "index.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "test"
   ]
 }
